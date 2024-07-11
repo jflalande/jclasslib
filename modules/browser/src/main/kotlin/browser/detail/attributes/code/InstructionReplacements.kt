@@ -20,13 +20,13 @@ fun getReplacementOpcodes(instruction: Instruction): List<Opcode> = when (instru
 
 fun getStackCompatibleReplacementOpcodes(instruction: Instruction): List<Opcode> {
     val stackChanges = getStackChanges(instruction.opcode)
-    return if (stackChanges != null) {
+    return getReplacementOpcodes(instruction) /*if (stackChanges != null) {
         getReplacementOpcodes(instruction).filter { opcode ->
             getStackChanges(opcode)?.isReplacementCompatibleWith(stackChanges) == true
         }
     } else {
         emptyList()
-    }
+    }*/
 }
 
 private val simpleInstructions = listOf(
@@ -184,6 +184,7 @@ private val simpleInstructions = listOf(
 )
 
 private val simpleImmediateBytecodeInstructions = listOf(
+        Opcode.NOP,
         Opcode.BIPUSH,
         Opcode.LDC,
         Opcode.ILOAD,
@@ -201,6 +202,7 @@ private val simpleImmediateBytecodeInstructions = listOf(
 )
 
 private val simpleImmediateShortInstructions = listOf(
+        Opcode.NOP,
         Opcode.LDC_W,
         Opcode.LDC2_W,
         Opcode.GETSTATIC,
@@ -218,6 +220,7 @@ private val simpleImmediateShortInstructions = listOf(
 )
 
 private val branchInstructions = listOf(
+        Opcode.NOP,
         Opcode.IFEQ,
         Opcode.IFNE,
         Opcode.IFLT,
@@ -239,6 +242,7 @@ private val branchInstructions = listOf(
 )
 
 private val wideBranchInstructions = listOf(
+        Opcode.NOP,
         Opcode.GOTO_W,
         Opcode.JSR_W
 )
